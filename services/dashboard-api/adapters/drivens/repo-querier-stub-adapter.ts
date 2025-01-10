@@ -7,7 +7,7 @@ const userMock: RepoUser = {
     email: 'dasdsa@dasd.com'
 };
 
-export class RepoQuerierStub implements ForRepoQuerying {
+export class RepoQuerierStubAdapter implements ForRepoQuerying {
     getUser(_email: string): Promise<RepoUser> {
         return Promise.resolve(userMock);
     }

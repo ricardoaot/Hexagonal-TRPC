@@ -1,13 +1,12 @@
-import { User } from "../ports/drivers/for-authenticating";
+import { User, AuthenticatedUser } from "./schemas";
 import { ForControlAuthenticating, ForRepoQuerying } from "../ports/drivens";
-import { AuthenticatedUser, ForAuthenticating } from "../ports/drivers";
+import { ForAuthenticating } from "../ports/drivers";
 
 export class DashboardApi implements ForAuthenticating {
     constructor(
         private readonly controlAuthenticator: ForControlAuthenticating,
         private readonly repoQuerier: ForRepoQuerying
     ){
-
     }    
 
     async login(email: string, password: string): Promise<AuthenticatedUser> {
@@ -16,23 +15,13 @@ export class DashboardApi implements ForAuthenticating {
         const permissions = await this.controlAuthenticator.getPermissions(email, password);
 
         const user = await this.repoQuerier.getUser(email);
-
-        return {   
+        const result = {   
             ...user,
             ...authDetails, 
             ...permissions  
         }
-
-        /*
-        return {
-            id: user.id,
-            email: user.email,
-            name: user.name,
-            token: authDetails.token,
-            refreshToken: authDetails.refreshToken,
-            ...permissions
-        }
-        */
+        console.log('LOGIN', result);
+        return result;
     }
 
     async register(user: User, password: string): Promise<AuthenticatedUser> {
@@ -42,10 +31,13 @@ export class DashboardApi implements ForAuthenticating {
 
         const permissions = await this.controlAuthenticator.getPermissions(newUser.email, password);
 
-        return {
+        const result = {
             ...newUser,
             ...authDetails,
             ...permissions
         }
+
+        console.log('REGISTER', result);
+        return result;
     }
 }
