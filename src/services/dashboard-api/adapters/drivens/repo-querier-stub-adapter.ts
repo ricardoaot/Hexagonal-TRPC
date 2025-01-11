@@ -2,9 +2,9 @@ import { User as RepoUser } from "../../../repository/app/schemas";
 import { ForRepoQuerying } from "../../ports/drivens";
 
 const userMock: RepoUser = {
-    id: '123',
-    name: 'dasdsa',
-    email: 'dasdsa@dasd.com'
+    id: '1',
+    name: 'Ricardo',
+    email: 'ricardotest@gmail.com'
 };
 
 export class RepoQuerierStubAdapter implements ForRepoQuerying {
