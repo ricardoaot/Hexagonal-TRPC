@@ -1,18 +1,18 @@
-import { RepoUser } from "../../../repository/app/schemas";
+import { ExternalUser, RepoUser } from "../../../repository/app/schemas";
 import { ForRepoQuerying } from "../../ports/drivens";
 
-const userMock: RepoUser = {
+const userMock: ExternalUser = {
     id: '1',
     name: 'Ricardo',
     email: 'ricardotest@gmail.com'
 };
 
-export class RepoQuerierStubAdapter implements ForRepoQuerying {
-    getUser(_email: string): Promise<RepoUser> {
+export class RepoQuerierStub implements ForRepoQuerying {
+    getUser(_email: string): Promise<ExternalUser> {
         return Promise.resolve(userMock);
     }
 
-    createUser(_user: RepoUser, _password: string): Promise<RepoUser> {
+    createUser(_user: RepoUser): Promise<ExternalUser> {
         return Promise.resolve(userMock);
     }
 }
